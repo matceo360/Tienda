@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-
+import { collection, getDocs } from "firebase/firestore";
+import db from "../../firebase/firebase";
 
 import ItemList from "../ItemList/ItemList";
 import Spinner from "../Spinner/Spinner";
@@ -12,17 +13,24 @@ const ItemListContainer = ({ greeting }) => {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    fetch("https://mocki.io/v1/1469fbe8-1eba-4543-8a73-bbb26a98b716")
-      .then((response) => response.json())
-      .then((respuesta) => {
-        setTimeout(() => {
-          
-          categoryId
-            ? setProducts(respuesta.filter((x) => x.category === categoryId))
-            : setProducts(respuesta);
-          setIsLoading(false);
-        }, 2000);
-      });
+    const obtenerData = async () => {
+      const data = await getDocs(collection(db, "products"));
+      //setProducts(data.docs);
+
+      const dataItems = data.docs;
+      //console.log(dataItems);
+      //setProducts(dataItems);
+
+      categoryId
+        ? setProducts(dataItems.filter((e) => e.data().category === categoryId))
+        : setProducts(dataItems);
+        
+    };
+    obtenerData();
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   }, [categoryId]);
 
   return (

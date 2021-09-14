@@ -7,7 +7,7 @@ const Item = ({ data }) => {
       <div className="view zoom overlay z-depth-2 rounded">
         <img
           className="img-fluid w-100"
-          src={data.image}
+          src={data.img}
           alt={data.title}
         ></img>
       </div>

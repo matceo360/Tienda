@@ -21,7 +21,7 @@ const ItemDetail = ({ data }) => {
       <div className="row">
         <div className="col-sm-12 col-md-6">
           <img
-            src={data.image}
+            src={data.img}
             alt={data.title}
             className="picture-detail"
           ></img>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import axios from "axios";
+
+
+import { collection, getDocs } from "firebase/firestore";
+import db from "../../firebase/firebase";
 
 import ItemDetail from "../ItemDetail/ItemDetail";
 import Spinner from "../Spinner/Spinner";
@@ -11,9 +14,15 @@ const ItemDetailContainer = ({ match }) => {
   let ItemId = match.params.id;
 
   useEffect(() => {
-    axios
-      .get("https://mocki.io/v1/1469fbe8-1eba-4543-8a73-bbb26a98b716")
-      .then((res) => setProduct(res.data[ItemId - 1]));
+    const obtenerData = async () => {
+      const data = await getDocs(collection(db, "products"));
+      //setProducts(data.docs);
+
+      const dataItems = data.docs;
+      setProduct(dataItems[ItemId - 1].data());
+    };
+    obtenerData();
+
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -24,7 +33,7 @@ const ItemDetailContainer = ({ match }) => {
       <h1 className="title-detail-container">ItemDetailContainer</h1>
       <div>
         <p className="text-center pb-5 item-detail-title ">ItemDetail</p>
-        {isLoading ? <Spinner /> : <ItemDetail data={product} />}
+        {isLoading ? <Spinner /> : <ItemDetail data={product} key={product.id_store} />}
       </div>
     </div>
   );

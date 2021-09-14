@@ -11,7 +11,7 @@ const CartItem = ({ dataItem }) => {
         <td>
           <img
             className="img-fluid w-100 text-center img-cart-item"
-            src={dataItem.image}
+            src={dataItem.img}
             alt={dataItem.title}
           ></img>
         </td>
@@ -24,7 +24,7 @@ const CartItem = ({ dataItem }) => {
         <td className="text-center">
           <button
             className="btn fas fa-trash-alt text-center"
-            onClick={() => removeItem(dataItem.id)}
+            onClick={() => removeItem(dataItem.id_store)}
           ></button>
         </td>
       </tr>
