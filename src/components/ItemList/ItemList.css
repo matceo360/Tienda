@@ -1,0 +1,10 @@
+#otros {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+
+  align-items: center;
+}
+.titulo {
+  display: block;
+}

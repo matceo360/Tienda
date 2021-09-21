@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-import CartWidget from "./../CartWidget/CartWidget";
-import { CartContext } from "../CartContext/CartContext";
+import CartWidget from "./CartWidget/CartWidget";
+
 
 function NavBar() {
-  const { totalItemsCart } = useContext(CartContext);
+ 
 
   return (
     <div className="header">
@@ -24,11 +24,11 @@ function NavBar() {
 
 
 
-        {totalItemsCart !== 0 ? (
+        
           <NavLink to="/cart" className="cart-icon-md-sm text-decoration-none">
-            <CartWidget />
+            
           </NavLink>
-        ) : null}
+    
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mr-auto mt-2">
@@ -80,11 +80,11 @@ function NavBar() {
           </ul>
         </div>
 
-        {totalItemsCart !== 0 ? (
+     
           <NavLink to="/cart" className="cart-icon-lg-xl text-decoration-none">
             <CartWidget />
           </NavLink>
-        ) : null}
+     
       </nav>
     </div>
   );

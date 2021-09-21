@@ -1,46 +1,42 @@
-import React, { useState } from "react";
+
+import React, {useState } from 'react';
+import  './ItemCount.css';
+import { Button } from 'semantic-ui-react'
 
 
-const ItemCount = ({ stock, initial, addItem }) => {
-  const [counter, setCounter] = useState(initial);
 
-  const addItems = () => {
-    if (counter < stock) {
-      setCounter(counter + 1);
-    } else {
-      console.log("No hay más stock");
+
+
+function ItemCount( { onAdd, producto} ) {
+
+
+
+
+    const [count, setCount] = useState(1);
+
+    const agregar = (max) => {
+        count < max ? setCount(count + 1) : alert('Max. Superada');
     }
-  };
 
-  const restItems = () => {
-    if (counter > 0) {
-      setCounter(counter - 1);
+    const quitar = () => {
+        count > 0 ? setCount(count-1) : alert('Min. no posible');
     }
-  };
 
-  const addProductToCart = () => {
-    if (counter > 0) {
-      addItem(counter);
-    }
-  };
+    return (
+        <>
+            <span className='conteiner'>
+                <Button onClick={quitar}> - </Button>
+                
+                <input 
+                id='cantidad'
+                value= {count}
+                />
+                <Button onClick={() => agregar(producto.stock)} > + </Button> 
+                <Button onClick={() => onAdd(count )} id= 'btnCompra'> Comprar </Button>
+            </span>
+        </>
+    )
+}
 
-  return (
-    <div>
-            <p>Stock disponible: {stock} unidades</p>
-      <div className="btn-group w-100" role="group" aria-label="Basic example">
-        <button type="button" className="btn btn-secondary" onClick={restItems}>
-          -
-        </button>
-        <p className="mx-5 mt-2">{counter}</p>
-        <button type="button" className="btn btn-secondary" onClick={addItems}>
-          +
-        </button>
-      </div>
-      <div className="btn btn-primary mt-3 w-100" onClick={addProductToCart}>
-        Agregar al carrito
-      </div>
-    </div>
-  );
-};
 
-export default ItemCount;
+export default ItemCount

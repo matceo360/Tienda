@@ -1,0 +1,11 @@
+#btnCompra {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 80%;
+  margin: 20px;
+}
+#cantidad {
+  width: 30px;
+  margin: 15px;
+}

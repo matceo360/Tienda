@@ -1,58 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {React, useState, useEffect} from 'react'
+import ItemList from '../ItemList/ItemList';
+import "./ItemListContainer.css"
+import { useParams } from 'react-router-dom';
+import {  collection, query, getDocs } from "firebase/firestore";
+import {db} from '../../firebase'
 
-import { collection, getDocs } from "firebase/firestore";
-import db from "../../firebase/firebase";
 
-import ItemList from "../ItemList/ItemList";
-import Spinner from "../Spinner/Spinner";
 
-const ItemListContainer = ({ greeting }) => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const { categoryId } = useParams();
 
-  useEffect(() => {
-    const obtenerData = async () => {
-      const data = await getDocs(collection(db, "products"));
-      //setProducts(data.docs);
+const ItemListConteiner = () => {
+  const [productos, setProductos] =useState([])
+  const { categoryId } = useParams()
 
-      const dataItems = data.docs;
-      //console.log(dataItems);
-      //setProducts(dataItems);
 
-      categoryId
-        ? setProducts(dataItems.filter((e) => e.data().category === categoryId))
-        : setProducts(dataItems);
-        
-    };
-    obtenerData();
+  
+  
+  const getProducts = async ()=>{
+  const products =[]
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, [categoryId]);
+   
+  const datos = query(collection(db, 'products'))
+  const querySnapshot = await getDocs(datos)
+  querySnapshot.forEach((doc)=> {
+   products.push({...doc.data(),id: doc.id}) 
 
-  return (
-    <div className="item-list-container container">
-      <div className="row">
-        <h1 className="title-products text-center col-12">ItemListContainer</h1>
-        <h2 className="text-center col-12">{greeting}</h2>
+  })
 
-        {categoryId ? (
-          <h2 className="text-center col-12">Categoría: {categoryId}</h2>
-        ) : null}
+  setProductos(products)
+  
+  }
 
-        <div className="col-12 p-4">
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <ItemList className="col-12" products={products} />
-          )}
-        </div>
+  useEffect(()=>{
+    getProducts()
+  },[categoryId])
+ 
+  
+
+  return(
+
+    <div className="OTRO">
+
+   
+      
+      <div className='otro'> 
+     
+     
+          
+             <ItemList key={productos} product={productos} />
+
       </div>
-    </div>
-  );
-};
 
-export default ItemListContainer;
+    </div>
+    
+  )
+}
+
+export default ItemListConteiner

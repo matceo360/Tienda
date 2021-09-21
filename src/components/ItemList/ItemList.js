@@ -1,30 +1,29 @@
-import React from "react";
 
-import { Link } from "react-router-dom";
+import Item from '../Item/Item';
+import './ItemList.css'
 
-import Item from "../Item/Item";
+const ItemList = ({product}) => {
 
-const ItemList = ({ products }) => {
-  return (
-    <div className="col-12">
-      <div className="row row-propiedades">
-        {products.map((product) => {
-          const item = product.data();
-          //console.log(item);
-          return (
-            <div
-              key={item.id_store}
-              className="col-sm-12 col-md-6 col-lg-4 mb-4"
-            >
-              <Link to={`/item/${item.id_store}`}>
-                <Item data={item} />
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+ 
+        return (
+        <div className='OtrosProductos' id="otros">
+            {product.map((data)=> {
+               
+            return (
+                
 
-export default ItemList;
+               <Item key={data.id} data= {data} />
+              
+            );
+            
+            })}
+
+
+            
+        </div>
+    )
+}
+
+
+export default ItemList
+

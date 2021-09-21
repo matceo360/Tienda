@@ -1,52 +1,73 @@
-import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
-import CartItem from "../../components/CartItem/CartItem";
-import { CartContext } from "../../components/CartContext/CartContext";
+import React from 'react';
+import {  useCartContext } from '../../CartContext';
+import { Icon } from 'semantic-ui-react'
+import {Link} from 'react-router-dom';
+import './cart.css'
+
+
 
 const Cart = () => {
-  const { cart, clear, totalItemsCart, totalPrice } = useContext(CartContext);
 
-  return (
-    <div className="cart-section-container">
-      <section className="main-cart-section">
-        <h1>Shopping Cart</h1>
-        {totalItemsCart !== 0 ? (
-          <p>Tienes {totalItemsCart} items en el Carrito</p>
-        ) : (
-          <p>Tu carrito está vacío</p>
-        )}
+    const {cart, cartPrice, clear, deleteItem } =useCartContext() ;
+    
+    const precioTotal = cartPrice();
+    
+    return (
+        <section className="cart">
+                
+            <h1>Carrito de Compras</h1>
+            
+                <div>
+                     {cart.length === 0 ?
+                    (<div>
+                        <p>Tu Carrito esta vacio</p>
+                        <Link to='/'>
+                            <button style={{padding: "10px 50px 10px 50px" }}> Empezar a comprar</button>
+                        </Link></div>)
+                        : 
+                        (
+                    <div>        
+                    <ul>
+                    {
+                        cart.map(data=> (
+                            <li key={data.id}>
+                                <img src={data.img} alt="" style={{margin: "10px"},{width:"10%"}}/>
+                                <div>
+                                <h2>{data.title}</h2>
+                                
+                                    <p>Cantidad: {data.quantity}</p>
+                                    <p>Precio por unidad: <strong>${data.price}</strong></p>
+                                    <p>Precio total: <strong>${data.price * data.quantity}</strong></p>
+                                    
+                                    <Icon name ="trash alternative" onClick={() => deleteItem(data.id)} style={{margin: "10px 50px 10px 50px" }} /> 
+                                </div>
+                            </li>
+                        ))
+                    }
+                 <button style={{padding: "10px 50px 10px 50px" }} onClick={() => clear()}>Vaciar carrito</button>
+                </ul>
+                
+                <div className="final">
+                    <p>Precio total: ${precioTotal} </p>
+                    <Link to="/">
+                      <button style={{padding: "10px 50px 10px 50px" }}>  Finalizar compra </button>
+                    </Link>
+                </div> 
 
-        <NavLink to="/" className="btn btn-info">
-          Seguir comprando
-        </NavLink>
+                    
 
-        <button onClick={clear} className="btn btn-info button-clear">
-          Limpiar
-        </button>
-        <div className="cart-items">
-          <div className="table-responsive container-cart-item pt-3">
-            <table className="table ">
-              <thead>
-                <tr>
-                  <th className="col-3">Imagen</th>
-                  <th className="col-2">Articulo</th>
-                  <th className="col-1 text-center">Precio</th>
-                  <th className="col-2 text-center">Cantidad</th>
-                  <th className="col-1 text-center">Total</th>
-                  <th className="col-1 text-center">Borrar</th>
-                </tr>
-              </thead>
 
-              {cart.map((item) => {
-                return <CartItem dataItem={item} key={item.id_store} />;
-              })}
-            </table>
-          </div>
-        </div>
-        <p className="total-cart">Total : ${totalPrice} </p>
-      </section>
-    </div>
-  );
-};
+                    
+                    </div>
+                    )}
+                 
+                 </div>
+                    </section>
+                ) 
+                
+            
+        
+    
+}
 
 export default Cart;

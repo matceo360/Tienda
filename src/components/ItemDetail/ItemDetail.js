@@ -1,60 +1,62 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import ItemCount from "../ItemCount/ItemCount";
-import { CartContext } from "../CartContext/CartContext";
+import React from 'react'
+import ItemCount from '../ItemCount/ItemCount'
+import { Card,  Image ,Button } from 'semantic-ui-react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import {  useCartContext } from '../../CartContext';
 
-const ItemDetail = ({ data }) => {
-  const [addQuantity, setAddQuantity] = useState(null);
 
-  const { addItemCart } = useContext(CartContext);
 
-  const onAdd = (cantidad) => {
-    if (cantidad > 0) {
-      setAddQuantity(cantidad);
-    }
-    addItemCart(data, cantidad);
-  };
+function ItemDetail({ data }) {
+
+  const { addToCart } = useCartContext()
+
+  const[count, setCount] = useState(null)
   
+  const onAdd = (count) => {(
+    count > 0 ? 
+  (addToCart(data , count)) : alert("Agregar producto")
+  )
+  setCount(count)
+  }
+    
+   
+    return (
+         
+            <div className='ProductDetail' style={{padding:50}}>
+                        <h1>Detalle del producto</h1>
+               
+                   
+                   <Card key={data.id} >
+                    <Image src={data.img} wrapped ui={false} />
+                    <Card.Content>
+                      <Card.Header> {data.title} </Card.Header>
+                      <Card.Meta>
+                        <span className='price'>$ {data.price}</span>
+                      </Card.Meta>
+                      <Card.Meta>{`STOCK: ${data.stock - count}`} </Card.Meta>
+                      <Card.Description>
+                        {data.descriptionextensa}
+                      </Card.Description>
 
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-12 col-md-6">
-          <img
-            src={data.img}
-            alt={data.title}
-            className="picture-detail"
-          ></img>
-        </div>
+                      <span>
+                     { count === null ? <ItemCount producto ={data} onAdd={onAdd}  />
+                     :
+                     <Link to='/cart'>
+                        <Button > Terminar Compra </Button>
+                      </Link>
+                      }
+                     
+                      </span>
+                      
+                    </Card.Content>
+                   
+                  </Card>
+                   
+ 
+           </div>
+        
+    )
+}
 
-        <div className="col-sm-12 col-md-6 text-left">
-          <h2>{data.title}</h2>
-          <h3 className="pt-2">${data.price}</h3>
-
-          <p className="pt-2">
-            <span className="font-weight-bold">Detalles del producto:</span>
-            <br /> {data.descriptionextensa}
-          </p>
-          <br></br>
-          <div className="row">
-            <div className="col-6">
-              <span>
-                {addQuantity === null ? (
-                  <ItemCount stock={10} initial={1} addItem={onAdd} />
-                ) : (
-                  <Link to="/Cart">
-                    <button type="button" className="btn btn-warning">
-                      Ir al carrito
-                    </button>
-                  </Link>
-                )}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ItemDetail;
+export default ItemDetail; 
