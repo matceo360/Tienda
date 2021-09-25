@@ -43,39 +43,13 @@ function NavBar() {
                 accesorios(proximamente)
               </NavLink>
             </li>
-
-            <li className="nav-item dropdown">
-              <p
-                to="/products"
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                repuestos
-              </p>
-              <div
-                className="dropdown-menu text-center style-dropdown"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
-                <NavLink to="/category/producto" className="dropdown-item">
-                  aceite
-                </NavLink>
-                <NavLink to="/category/producto" className="dropdown-item">
-                  filtro de aire
-                </NavLink>
-                <NavLink to="/category/producto" className="dropdown-item">
-                  filtro de combustible
-                </NavLink>
-                <NavLink to="/category/producto" className="dropdown-item">
-                  filtro de aceite
-                </NavLink>
-              </div>
+            <li className="nav-item">
+              <NavLink to="/category/products" className="nav-link">
+                Repuestos
+              </NavLink>
             </li>
 
+           
  
           </ul>
         </div>

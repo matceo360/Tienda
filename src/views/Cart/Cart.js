@@ -28,28 +28,28 @@ const Cart = () => {
                         (
                     <div>        
                     <ul>
-                    {
-                        cart.map(data=> (
+                    { 
+                        cart.map((data)=> (
                             <li key={data.id}>
-                                <img src={data.img} alt="" style={{margin: "10px"},{width:"10%"}}/>
+                                <img src={data.img} alt="" style={{margin: "10px" }}/>
                                 <div>
                                 <h2>{data.title}</h2>
                                 
                                     <p>Cantidad: {data.quantity}</p>
                                     <p>Precio por unidad: <strong>${data.price}</strong></p>
-                                    <p>Precio total: <strong>${data.price * data.quantity}</strong></p>
+                                    <p>Precio total: <strong> $ {data.price * data.quantity}</strong></p>
                                     
                                     <Icon name ="trash alternative" onClick={() => deleteItem(data.id)} style={{margin: "10px 50px 10px 50px" }} /> 
                                 </div>
                             </li>
-                        ))
+                        ), console.log(cart))
                     }
                  <button style={{padding: "10px 50px 10px 50px" }} onClick={() => clear()}>Vaciar carrito</button>
                 </ul>
                 
                 <div className="final">
-                    <p>Precio total: ${precioTotal} </p>
-                    <Link to="/">
+                    <p>Precio total: ${precioTotal} </p> 
+                    <Link to="/Checkout">
                       <button style={{padding: "10px 50px 10px 50px" }}>  Finalizar compra </button>
                     </Link>
                 </div> 
