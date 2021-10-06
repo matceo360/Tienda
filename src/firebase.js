@@ -4,14 +4,13 @@ import { initializeApp } from "@firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD8DhA1Ooth8hraQQ9ka6vouCYoXafahKM",
-  authDomain: "base-de-datos-tienda-45869.firebaseapp.com",
-  projectId: "base-de-datos-tienda-45869",
-  storageBucket: "base-de-datos-tienda-45869.appspot.com",
-  messagingSenderId: "347630284096",
-  appId: "1:347630284096:web:30ffd18426b30e8167dea5"
+  apiKey: "AIzaSyC_n3maT_ZmWHGXz4nH8eE8T4d56U8RXT4",
+  authDomain: "base-datos-tienda2.firebaseapp.com",
+  projectId: "base-datos-tienda2",
+  storageBucket: "base-datos-tienda2.appspot.com",
+  messagingSenderId: "982350226126",
+  appId: "1:982350226126:web:b34b0b3bee80ccaa4da69f"
 };
-
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  export const db = getFirestore(app);
